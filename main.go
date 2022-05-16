@@ -20,6 +20,7 @@ func main() {
 	}(db)
 
 	r := gin.Default()
+	// r.MaxMultipartMemory = 64 << 8 这里可以设置 context 最大的文件大小，默认为32 << 8
 
 	router.InitRouter(r)
 

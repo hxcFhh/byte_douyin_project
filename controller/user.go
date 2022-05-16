@@ -24,7 +24,8 @@ type UserResponse struct {
 	User model.User `json:"user"`
 }
 
-// Register 注册逻辑
+// Register 注册逻辑 安卓端已经在注册的时候验证了注册名不能为空
+// 这里还需处理sql注入的问题
 func Register(ctx *gin.Context) {
 	DB := DB2.GetDB()
 	username := ctx.Query("username")
@@ -99,7 +100,9 @@ func Login(ctx *gin.Context) {
 	}
 	// 判断密码是否正确
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status_code": 400, "status_msg": "密码错误!"})
+		ctx.JSON(http.StatusBadRequest, UserLoginResponse{
+			Response: model.Response{StatusCode: 422, StatusMsg: "密码错误"},
+		})
 		return
 	}
 

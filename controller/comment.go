@@ -1,6 +1,9 @@
 package controller
 
-import "simpleTikTok/model"
+import (
+	"github.com/gin-gonic/gin"
+	"simpleTikTok/model"
+)
 
 type CommentListResponse struct {
 	model.Response
@@ -18,3 +21,8 @@ type CommentListResponse struct {
 	}
 }
 */
+
+// CommentAction 评论逻辑，后续补充
+func CommentAction(ctx *gin.Context) {
+
+}
